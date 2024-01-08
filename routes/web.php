@@ -21,6 +21,9 @@ Route::get('/home',[HomeController::class, 'index'])->name('home.index');
 Route::get('/siswa',[SiswaController::class, 'index'])->name('siswa.index');
 Route::get('/tambahsiswa',[SiswaController::class, 'create'])->name('siswa.tambah');
 Route::post('/tambahsiswa',[SiswaController::class, 'store'])->name('siswa.store');
+Route::get('/siswa/{id}/edit', [SiswaController::class, 'edit'])->name('siswa.edit');
+Route::put('/siswa/{id}', [SiswaController::class, 'update'])->name('siswa.update');
+Route::delete('/siswa/{id}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
 Route::get('/lembaga',[lembagaController::class, 'index'])->name('lembaga.index');
 Route::post('/lembaga',[lembagaController::class, 'tambahlembaga'])->name('lembaga.tambah');
 

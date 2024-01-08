@@ -42,7 +42,7 @@
                 <th scope="col" class="px-6 py-3">
                     Foto
                 </th>
-
+                <th scope="col" class="px-6 py-3">action</th>
             </tr>
         </thead>
         <tbody>
@@ -63,7 +63,15 @@
                 <td class="px-6 py-4">
                     <img src="{{ asset('images/' . $siswa->foto) }}" alt="Foto Siswa" class="w-12 h-12"> {{ $siswa->foto }}
                 </td>
-
+                
+            <td class="px-6 py-4">
+                <a href="{{ route('siswa.edit', $siswa->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                <form action="{{ route('siswa.destroy', $siswa->id) }}" method="post" class="inline">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="text-red-600 hover:text-red-900 ml-2" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
+                </form>
+            </td>
             </tr>
             @empty
             <tr>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Support\Facades\File;
 use App\Models\siswa;
 use App\Models\lembaga;
 use Maatwebsite\Excel\Facades\Excel;
@@ -73,6 +73,60 @@ class SiswaController extends Controller
 
         return redirect()->route('siswa.index')->with('success', 'Siswa added successfully');
     }
+    public function edit($id)
+    {
+        $lembagas = Lembaga::all();
+        $siswa = Siswa::findOrFail($id);
+        return view('editsiswa', compact('siswa', 'lembagas'));
+    }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'lembaga' => 'required',
+            'nis' => 'required|string',
+            'nama' => 'required|string',
+            'email' => 'required|email',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $siswa = Siswa::findOrFail($id);
+        $siswa->lembaga = $request->lembaga;
+        $siswa->nis = $request->nis;
+        $siswa->nama = $request->nama;
+        $siswa->email = $request->email;
+
+        
+        if ($request->hasFile('foto')) {
+          
+            if ($siswa->foto) {
+                File::delete(public_path('images/' . $siswa->foto));
+            }
+
+           
+            $image = $request->file('foto');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $siswa->foto = $imageName;
+        }
+
+        $siswa->save();
+
+        return redirect()->route('siswa.index')->with('success', 'Siswa updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        $siswa = Siswa::findOrFail($id);
+
+       
+        if ($siswa->foto) {
+            File::delete(public_path('images/' . $siswa->foto));
+        }
+
+        $siswa->delete();
+
+        return redirect()->route('siswa.index')->with('success', 'Siswa deleted successfully');
+    }
     
 }
