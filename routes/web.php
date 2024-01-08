@@ -21,7 +21,6 @@ Route::get('/home',[HomeController::class, 'index'])->name('home.index');
 Route::get('/siswa',[SiswaController::class, 'index'])->name('siswa.index');
 Route::get('/tambahsiswa',[SiswaController::class, 'create'])->name('siswa.tambah');
 Route::post('/tambahsiswa',[SiswaController::class, 'store'])->name('siswa.store');
-Route::get('/export-siswa', [SiswaController::class, 'exportExcel'])->name('export.siswa');
 Route::get('/lembaga',[lembagaController::class, 'index'])->name('lembaga.index');
 Route::post('/lembaga',[lembagaController::class, 'tambahlembaga'])->name('lembaga.tambah');
 

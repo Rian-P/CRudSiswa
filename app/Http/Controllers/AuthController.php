@@ -17,15 +17,15 @@ public function register(Request $request)
 {
     
 
-    // Hash the password before creating the user
+    
     $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
         'position' => $request->position,
-        'password' => bcrypt($request->password), // Hashing the password using bcrypt
+        'password' => bcrypt($request->password), 
     ]);
 
-    // Redirect to the login page after successful registration
+  
     return redirect()->route('show.login');
 }
 
@@ -43,12 +43,11 @@ public function login(Request $request)
         'password' => 'required',
     ]);
 
-    // Attempt to authenticate the user
+   
     if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-        // Authentication successful, redirect to the home page
-        return redirect()->route('home.index'); // Make sure 'home.index' is the correct route name
+         return redirect()->route('home.index'); 
     } else {
-        // Authentication failed, redirect back with an error message
+
         return back()->with('error', 'Invalid credentials');
     }
 }

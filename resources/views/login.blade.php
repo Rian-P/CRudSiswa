@@ -24,7 +24,9 @@
         </a>
     </header>
     <main class="max-w-lg mx-auto p-8 md:p-12 ">
-        
+    @if(session('error'))
+        <p style="color: red;">{{ session('error') }}</p>
+    @endif
         <section class="mt-0">
             <form class="flex flex-col" method="post" action="{{ route('login.store') }}">
                 @csrf

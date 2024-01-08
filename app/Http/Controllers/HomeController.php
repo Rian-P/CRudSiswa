@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
-        $user = Auth::user(); // Get the authenticated user
+        $user = Auth::user(); 
         return view('home', compact('user'));
 }
 }

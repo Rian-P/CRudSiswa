@@ -12,17 +12,17 @@
             <select name="lembaga" class="border p-2">
                 <option value="" selected disabled>Select Lembaga</option>
                 @foreach ($lembagas as $lembaga)
-                <option value="{{ $lembaga->id }}">{{ $lembaga->lembaga}}</option>
+                <option value="{{ $lembaga->lembaga }}">{{ $lembaga->lembaga}}</option>
                 @endforeach
             </select>
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
         </div>
     </form>
     <div class="mb-14 mt-5">
-    <a id="exportExcelBtn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-        Export to Excel
-    </a>
-</div>
+        <a id="exportExcelBtn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            Export to Excel
+        </a>
+    </div>
 
     <table id="siswaTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="mb-10 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -61,7 +61,7 @@
                     {{ $siswa->email }}
                 </td>
                 <td class="px-6 py-4">
-                    <img src="{{ asset('images/' . $siswa->foto) }}" alt="Foto Siswa" class="w-12 h-12">
+                    <img src="{{ asset('images/' . $siswa->foto) }}" alt="Foto Siswa" class="w-12 h-12"> {{ $siswa->foto }}
                 </td>
 
             </tr>
@@ -79,7 +79,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
 
 <script>
-    document.getElementById('exportExcelBtn').addEventListener('click', function () {
+    document.getElementById('exportExcelBtn').addEventListener('click', function() {
         // Ambil elemen tabel
         var table = document.getElementById('siswaTable');
 
