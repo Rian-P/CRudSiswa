@@ -6,7 +6,6 @@
 </div>
 
 <div class="overflow-x-auto">
-
     <form action="{{ route('siswa.index') }}" method="GET" class="mb-4">
         <div class="flex items-center space-x-4">
             <input type="text" name="search" placeholder="Search by NIS or Name" class="border p-2">
@@ -20,12 +19,12 @@
         </div>
     </form>
     <div class="mb-14 mt-5">
-    <a href="{{ route('export.siswa', ['id' => $lembaga]) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+    <a id="exportExcelBtn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
         Export to Excel
     </a>
 </div>
 
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <table id="siswaTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="mb-10 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -77,4 +76,30 @@
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+
+<script>
+    document.getElementById('exportExcelBtn').addEventListener('click', function () {
+        // Ambil elemen tabel
+        var table = document.getElementById('siswaTable');
+
+        // Ambil data dari tabel
+        var data = XLSX.utils.table_to_book(table).Sheets.Sheet1;
+
+        // Buat file Excel dari data
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, data, 'Sheet1');
+
+        // Simpan file Excel
+        XLSX.writeFile(wb, 'siswa.xlsx');
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#siswaTable').DataTable({
+            searching: false
+        });
+    });
+</script>
 @endsection
